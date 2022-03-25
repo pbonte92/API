@@ -24,7 +24,7 @@ path = os.path.dirname(os.path.abspath(__file__))
 data = pd.read_csv(path  + "/data.csv")
 datalist = (data.columns.tolist())
 model = pickle.load(open(path  + "/model_credit.pkl","rb"))
-"""
+
 exp = data.drop('SK_ID_CURR', axis=1)
 
 explainer = lime_tabular.LimeTabularExplainer(
@@ -32,7 +32,7 @@ explainer = lime_tabular.LimeTabularExplainer(
     feature_names= exp.columns,
     class_names=['0', '1'],
     mode='classification')
-"""
+
 def filter_dataset(df, client_id):
     'Filters dataset down to a single line, being the chosen client ID'
     X = df[df['SK_ID_CURR'] == int(client_id)]
@@ -62,7 +62,7 @@ def predict():
 
     # Return output
     return jsonify({'Proba non défaut' : [float(round(prediction[0]*100,2)),int(50)] , 'Proba défaut' : [float(round(prediction[1]*100,2)),int(50)]})
-""""
+
 @app.route('/lime' , methods=['POST'])
 def explain() : 
     
@@ -82,7 +82,7 @@ def explain() :
     explained = pd.DataFrame.to_dict(explained)
       
     return jsonify(explained)
-""" 
+
     
 if __name__ == "__main__":
     port = os.environ.get("PORT" , 5000)
